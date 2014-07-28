@@ -20,6 +20,11 @@ func checkErr(err error) {
 	}
 }
 
+func envNotProvidedExit() {
+	println("must provide an environment, e.g. 'ci', 'qa', or 'prod'...")
+	os.Exit(1)
+}
+
 func main() {
 	if len(os.Args) > 1 && strings.HasPrefix(os.Args[1], "-s ") {
 		args := []string{}
@@ -34,6 +39,10 @@ func main() {
 
 	var envFile string
 
+	if len(flag.Args()) == 0 {
+		envNotProvidedExit()
+	}
+
 	appEnv := flag.Args()[0]
 
 	switch appEnv {
@@ -46,8 +55,7 @@ func main() {
 	case "production":
 		envFile = "http://ag-web-01.atl.primedia.com/ops/env/environment.cfg"
 	default:
-		println("must provide an environment, e.g. 'ci', 'qa', or 'prod'...")
-		os.Exit(1)
+		envNotProvidedExit()
 	}
 
 	resp, err := http.Get(envFile)
