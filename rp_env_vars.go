@@ -31,9 +31,9 @@ func envUri(env string) string {
 	var subdomain string
 	switch env {
 	case "ci":
-		subdomain = "ag-web-01.ci.nor"
+		subdomain = "ag-web-01.ci.atl"
 	case "qa":
-		subdomain = "ag-web-01.qa.nor"
+		subdomain = "ag-web-01.qa.atl"
 	case "prod":
 		subdomain = "ag-web-01.atl"
 	case "production":
